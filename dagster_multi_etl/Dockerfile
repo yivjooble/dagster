@@ -16,6 +16,9 @@ RUN pip install --upgrade pip &&     pip install -e ".[dev]"
 # Copy the workspace file
 COPY workspace.yaml /opt/dagster/app/
 
+# Create DAGSTER_HOME directory and set permissions
+RUN mkdir -p /opt/dagster/dagster_home &&     chown -R 1001:0 /opt/dagster/dagster_home ||     (echo "Failed to chown DAGSTER_HOME, perhaps running as non-root or user/group 1001:0 does not exist. Continuing..." && true)
+
 # Expose the port Dagster UI runs on
 EXPOSE 3000
 

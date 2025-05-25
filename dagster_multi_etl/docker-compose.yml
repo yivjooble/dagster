@@ -1,0 +1,42 @@
+version: "3.8"
+
+services:
+  dagster-webserver:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    entrypoint:
+      - "dagster"
+      - "dev"
+      - "-h"
+      - "0.0.0.0"
+      - "-p"
+      - "3000"
+      - "-w"
+      - "workspace.yaml"
+    ports:
+      - "3000:3000"
+    volumes:
+      - ".:/opt/dagster/app" # Mount current directory for live reload
+    environment:
+      - DAGSTER_HOME=/opt/dagster/dagster_home # Optional: Define DAGSTER_HOME
+    depends_on:
+      - dagster-daemon # Optional: if you want daemon to start first, though not strictly necessary for dev
+
+  dagster-daemon:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    entrypoint:
+      - "dagster-daemon"
+      - "run"
+    volumes:
+      - ".:/opt/dagster/app" # Mount current directory
+    environment:
+      - DAGSTER_HOME=/opt/dagster/dagster_home # Optional: Define DAGSTER_HOME
+
+# Optional: Define a shared volume for DAGSTER_HOME if needed across restarts,
+# otherwise, data like run history might be ephemeral within containers.
+# For local development, this might not be critical, but good for consistency.
+# volumes:
+#   dagster_home_volume:

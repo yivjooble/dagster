@@ -1,0 +1,13 @@
+load_from:
+  - python_module:
+      module_name: dagster_multi_etl.etl_repstat.definitions
+      working_directory: dagster_multi_etl # Add this to ensure correct module loading path
+      location_name: etl_repstat
+  - python_module:
+      module_name: dagster_multi_etl.etl_production.definitions
+      working_directory: dagster_multi_etl # Add this to ensure correct module loading path
+      location_name: etl_production
+  - python_module:
+      module_name: dagster_multi_etl.service.definitions
+      working_directory: dagster_multi_etl # Add this to ensure correct module loading path
+      location_name: service

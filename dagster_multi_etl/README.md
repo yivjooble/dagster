@@ -20,6 +20,33 @@ Open http://localhost:3000 with your browser to see the project.
 
 You can start writing assets in `dagster_multi_etl/assets.py`. The assets are automatically loaded into the Dagster code location as you define them.
 
+## Running with Docker Compose
+
+This project can be run using Docker Compose, which simplifies the setup of the Dagster webserver and daemon.
+
+**Prerequisites:**
+- Docker: [Install Docker](https://docs.docker.com/get-docker/)
+- Docker Compose: Usually included with Docker Desktop. If not, [Install Docker Compose](https://docs.docker.com/compose/install/).
+
+**Steps:**
+
+1.  **Build and run the containers:**
+    Navigate to the `dagster_multi_etl` project directory (where the `docker-compose.yml` file is located) and run:
+    ```bash
+    docker-compose up --build
+    ```
+    The `--build` flag ensures the Docker image is built the first time or when `Dockerfile` changes. Subsequent runs can omit `--build` if no changes to the Docker environment are made.
+
+2.  **Access Dagster UI:**
+    Open http://localhost:3000 in your browser to see the Dagster UI.
+
+3.  **Stopping the services:**
+    To stop the Docker Compose services, press `Ctrl+C` in the terminal where `docker-compose up` is running, or run:
+    ```bash
+    docker-compose down
+    ```
+    This will stop and remove the containers.
+
 ## Development
 
 ### Adding new Python dependencies
